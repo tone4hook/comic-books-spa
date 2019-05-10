@@ -27,6 +27,7 @@ const comics = {
       state.comicBooks = payload.comics;
     },
     [SET_START_DATE](state, payload) {
+      console.log(payload.date);
       state.startDate = payload.date;
     },
     [SET_END_DATE](state, payload) {
@@ -42,7 +43,7 @@ const comics = {
       state.totalPages = payload.pages;
     },
     [SET_WEEKS](state, payload) {
-      statereleaseWeeks = payload.releaseWeeks;
+      state.releaseWeeks = payload.releaseWeeks;
     }
   },
   actions: {
@@ -86,10 +87,11 @@ const comics = {
       const releaseWeeks = weeks.getWeeks(); // Weeks getter
       commit({ type: SET_WEEKS, releaseWeeks });
     },
-    setStartDate({ commit }, { date }) {
+    setStartDate({ commit }, date) {
+      console.log(date);
       commit({ type: SET_START_DATE, date });
     },
-    setEndDate({ commit }, { date }) {
+    setEndDate({ commit }, date) {
       commit({ type: SET_END_DATE, date });
     },
     setOffset({ commit }, { offset }) {
@@ -108,7 +110,11 @@ const comics = {
     getStartDate: state => state.startDate,
     getEndDate: state => state.endDate,
     getTotalPages: state => state.totalPages,
-    getTotalResults: state => state.totalResults
+    getTotalResults: state => state.totalResults,
+    getComicsLoaded: state => {
+      if (state.comicBooks.length > 0) return true;
+      return false;
+    }
   }
 };
 
