@@ -1,5 +1,8 @@
 <template>
-    <b-container class="mt-5">
+    <b-container class="mt-2">
+        <b-row v-if="getComicsLoaded" class="d-flex justify-content-center">
+            <Pagination/>
+        </b-row>
         <b-row v-if="getComicsLoaded">
             <b-col
                 cols="12"
@@ -19,14 +22,17 @@
 <script>
 import { mapGetters } from "vuex";
 import GridItem from "./GridItem";
+import Pagination from "./Pagination";
 
 export default {
     components: {
-        GridItem
+        GridItem,
+        Pagination
     },
     computed: {
         ...mapGetters("comics", ["getComicBooks", "getComicsLoaded"])
     }
 };
 </script>
+
 

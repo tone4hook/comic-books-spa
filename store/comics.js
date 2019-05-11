@@ -5,12 +5,13 @@ import {
   SET_OFFSET,
   SET_TOTAL_RESULTS,
   SET_TOTAL_PAGES,
-  SET_WEEKS
+  SET_WEEKS,
+  SET_FILTER
 } from "./mutation-types";
 import fetchJSONP from "../helpers/jsonp";
 import comicVine from "../helpers/comicVine";
 import Weeks from "../helpers/Weeks";
-import { formatComicVineResponse } from "../helpers/utils";
+import { formatComicVineResponse, hasProperty } from "../helpers/utils";
 
 const comics = {
   state: () => ({
@@ -20,7 +21,8 @@ const comics = {
     offset: 0,
     totalPages: 0,
     totalResults: 0,
-    releaseWeeks: []
+    releaseWeeks: [],
+    filter: ""
   }),
   mutations: {
     [SET_COMIC_BOOKS](state, payload) {
@@ -44,10 +46,13 @@ const comics = {
     },
     [SET_WEEKS](state, payload) {
       state.releaseWeeks = payload.releaseWeeks;
+    },
+    [SET_FILTER](state, payload) {
+      state.filter = payload.filter;
     }
   },
   actions: {
-    fetchComics({ commit, dispatch, state }) {
+    fetchComics({ dispatch, state }) {
       const { startDate, endDate, offset } = state;
       const url = comicVine(startDate, endDate, offset);
       return new Promise((resolve, reject) => {
@@ -94,7 +99,7 @@ const comics = {
     setEndDate({ commit }, date) {
       commit({ type: SET_END_DATE, date });
     },
-    setOffset({ commit }, { offset }) {
+    setOffset({ commit }, offset) {
       commit({ type: SET_OFFSET, offset });
     },
     setTotalResults({ commit }, { total }) {
@@ -102,10 +107,25 @@ const comics = {
     },
     setTotalPages({ commit }, { pages }) {
       commit({ type: SET_TOTAL_PAGES, pages });
+    },
+    setFilter({ commit }, filter) {
+      commit({ type: SET_FILTER, filter });
     }
   },
   getters: {
-    getComicBooks: state => state.comicBooks,
+    getComicBooks: state => {
+      if (state.comicBooks.length < 1) return state.comicBooks;
+      return state.comicBooks.filter(item => {
+        if (hasProperty(item, "volume")) {
+          if (
+            item.volume.name.toUpperCase().indexOf(state.filter.toUpperCase()) >
+            -1
+          ) {
+            return item;
+          }
+        }
+      });
+    },
     getReleaseWeeks: state => state.releaseWeeks,
     getStartDate: state => state.startDate,
     getEndDate: state => state.endDate,

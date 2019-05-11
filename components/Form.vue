@@ -3,16 +3,17 @@
         <b-form inline>
             <b-form-group class="flex-fill px-1">
                 <b-input
+                    v-on:keydown="handleInput"
                     id="comic-books-filter"
                     class="w-100"
-                    v-model="filter"
+                    v-model="filterComics"
                     placeholder="Filter comics by typing here..."
                 ></b-input>
             </b-form-group>
             <b-form-group class="flex-fill px-1">
                 <label class="float-left mt-1 mr-1">Release week:</label>
                 <b-form-select
-                    @change="handleSelect"
+                    v-on:change="handleSelect"
                     id="release-weeks"
                     v-model="selected"
                     :options="releaseWeeks"
@@ -28,12 +29,20 @@ import { mapActions, mapGetters } from "vuex";
 export default {
     data: function() {
         return {
-            filter: "",
+            textStr: "",
             selected: 0,
             releaseWeeks: [{ value: 0, text: "Select a week" }]
         };
     },
     computed: {
+        filterComics: {
+            get() {
+                return this.textStr;
+            },
+            set(newStr) {
+                this.textStr = newStr;
+            }
+        },
         ...mapGetters("comics", ["getReleaseWeeks"])
     },
     methods: {
@@ -53,11 +62,15 @@ export default {
                     });
             });
         },
+        handleInput: function() {
+            this.setFilter(this.textStr);
+        },
         ...mapActions("comics", [
             "fetchComics",
             "setStartDate",
             "setEndDate",
-            "setWeeks"
+            "setWeeks",
+            "setFilter"
         ])
     },
     mounted() {
