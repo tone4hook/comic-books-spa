@@ -3,7 +3,7 @@
         <b-form inline>
             <b-form-group class="flex-fill px-1">
                 <b-input
-                    v-on:keydown="handleInput"
+                    v-on:keyup="handleInput"
                     id="comic-books-filter"
                     class="w-100"
                     v-model="filterComics"
