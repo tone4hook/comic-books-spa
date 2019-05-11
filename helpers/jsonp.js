@@ -1,3 +1,6 @@
+/*
+ * @param url String
+ */
 const fetchJSONP = (unique => url =>
   new Promise(resolve => {
     // INIT

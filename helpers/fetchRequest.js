@@ -1,6 +1,6 @@
 /**
  * Fetch data from the api.
- * @param {url} arg Api url string with default value.
+ * @param url String
  */
 const fetchRequest = url => {
   return fetch(url)

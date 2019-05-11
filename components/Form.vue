@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="mt-3">
         <b-form inline>
             <b-form-group class="flex-fill px-1">
                 <b-input
@@ -10,7 +10,7 @@
                     placeholder="Filter comics by typing here..."
                 ></b-input>
             </b-form-group>
-            <b-form-group class="flex-fill px-1">
+            <b-form-group class="flex-fill pl-0 pl-sm-2 pl-md-4">
                 <label class="float-left mt-1 mr-1">Release week:</label>
                 <b-form-select
                     v-on:change="handleSelect"

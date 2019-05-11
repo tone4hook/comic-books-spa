@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <b-nav tabs fill>
+    <header>
+        <b-nav tabs fill class="mt-2">
             <b-nav-item v-bind:active="currentPath === '/' ? true : false">
                 <nuxt-link v-on:click.native="navItemHandler" to="/">Comic Books</nuxt-link>
             </b-nav-item>
@@ -8,7 +8,7 @@
                 <nuxt-link v-on:click.native="navItemHandler" to="/about">About</nuxt-link>
             </b-nav-item>
         </b-nav>
-    </div>
+    </header>
 </template>
 
 <script>

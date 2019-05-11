@@ -52,8 +52,10 @@ const comics = {
     }
   },
   actions: {
+    // action for api fetch requests
     fetchComics({ dispatch, state }) {
       const { startDate, endDate, offset } = state;
+      // form url with api params using ~/helpers/comicVine
       const url = comicVine(startDate, endDate, offset);
       return new Promise((resolve, reject) => {
         fetchJSONP(url)
@@ -80,6 +82,7 @@ const comics = {
     setComicBooks({ commit }, { comics }) {
       commit({ type: SET_COMIC_BOOKS, comics });
     },
+    // create release week dates using Weeks class in helpers
     setWeeks({ commit }) {
       const date = new Date();
 
@@ -108,11 +111,13 @@ const comics = {
     setTotalPages({ commit }, { pages }) {
       commit({ type: SET_TOTAL_PAGES, pages });
     },
+    // for filtering displayed comics by user input
     setFilter({ commit }, filter) {
       commit({ type: SET_FILTER, filter });
     }
   },
   getters: {
+    // return comicBooks filtered by user input
     getComicBooks: state => {
       if (state.comicBooks.length < 1) return state.comicBooks;
       return state.comicBooks.filter(item => {
