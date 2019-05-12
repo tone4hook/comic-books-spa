@@ -21,7 +21,7 @@ class Weeks {
   getWeeks() {
     // move the current week
     // to the front of the array
-    //this._weeks.move(1, 0);
+    this._weeks.move(1, 0);
 
     return this._weeks;
   } // /getweeks

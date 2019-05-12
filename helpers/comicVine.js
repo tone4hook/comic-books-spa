@@ -7,7 +7,7 @@ import { checkDateStr } from "./utils";
  * @param offset Number
  */
 const comicVine = (startDate = null, endDate = null, offset = 0) => {
-  const apiKey = "yourComicVineApiKeyHere";
+  const apiKey = "YourComicVineApiKeyHere";
   const base = `https://www.comicvine.com/api/issues/?api_key=${apiKey}`;
   const fieldList =
     "&field_list=image,description,id,issue_number,store_date,volume";
